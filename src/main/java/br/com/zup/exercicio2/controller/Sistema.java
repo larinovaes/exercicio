@@ -21,7 +21,7 @@ public class Sistema {
     public void cadastrarLead(LeadDTO leadDTO) {
         for (LeadDTO referencia : leadsDTOS) {
             if (referencia.getEmailDoLead().equalsIgnoreCase(leadDTO.getEmailDoLead())) {
-               throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+               throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
             }
         }
         leadsDTOS.add(leadDTO);

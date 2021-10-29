@@ -23,4 +23,5 @@ public class Controller {
     public void cadastrarLead(@RequestBody LeadDTO leadDTO){
         servico.cadastrarLead(leadDTO);
     }
+
 }

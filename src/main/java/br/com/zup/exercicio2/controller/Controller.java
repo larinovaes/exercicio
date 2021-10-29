@@ -1,6 +1,7 @@
 package br.com.zup.exercicio2.controller;
 
 import br.com.zup.exercicio2.controller.dtos.LeadDTO;
+import br.com.zup.exercicio2.controller.dtos.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/leads")
 public class Controller {
-
     @Autowired
     private Sistema servico;
 
@@ -20,8 +20,13 @@ public class Controller {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarLead(@RequestBody LeadDTO leadDTO){
+    public void cadastrarLead(@RequestBody LeadDTO leadDTO) {
         servico.cadastrarLead(leadDTO);
+    }
+
+
+    public void atualizarListaDeProduto(@RequestBody ProdutoDTO produtoDTO) {
+        servico.atualizarListaDeProduto(produtoDTO);
     }
 
 }

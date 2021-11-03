@@ -1,32 +1,38 @@
 package br.com.zup.exercicio2.controller;
 
-import br.com.zup.exercicio2.controller.dtos.LeadDTO;
-import br.com.zup.exercicio2.controller.dtos.ProdutoDTO;
+import br.com.zup.exercicio2.dtos.LeadDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/leads")
 public class Controller {
     @Autowired
-    private Sistema servico;
+    private ServicoLead servico;
 
     @GetMapping
     public List<LeadDTO> mostrarLeads(){
         return servico.mostrarLead();
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarLead(@RequestBody LeadDTO leadDTO) {
-        servico.cadastrarLead(leadDTO);
+    public void cadastrarLead(@RequestBody @Valid LeadDTO leadDTO){
+        try {
+            servico.cadastrarLead(leadDTO);
+        } catch (RuntimeException exception) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
-
-    public void atualizarListaDeProduto(@RequestBody ProdutoDTO produtoDTO) {
-        servico.atualizarListaDeProduto(produtoDTO);
+    @GetMapping("/{nomeDoLead}")
+    public LeadDTO buscarLead(@PathVariable String nomeDoLead) {
+        return servico.verSomenteOleadEscolhido(nomeDoLead);
     }
-
 }

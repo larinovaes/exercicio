@@ -1,7 +1,10 @@
-package br.com.zup.exercicio2.controller.dtos;
+package br.com.zup.exercicio2.dtos;
+
+import javax.validation.constraints.NotBlank;
 
 public class ProdutoDTO {
 
+    @NotBlank
     private String nomeDoProduto;
     private  double valor;
 
